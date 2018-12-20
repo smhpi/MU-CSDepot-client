@@ -1,0 +1,14 @@
+.NewNote form {
+  padding-bottom: 15px;
+}
+
+.NewNote form textarea {
+  height: 300px;
+  font-size: 24px;
+}
+
+.ActionRow {
+  border-top: 1px solid #dfe3e8;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
