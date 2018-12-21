@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import {
   PageHeader,
   ListGroup,
-  ListGroupItem,
   Grid,
   Row,
   Col,
-  Image
+  Image,
+  Table,
+  Button
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
@@ -31,6 +32,7 @@ export default class Home extends Component {
 
     try {
       const notes = await this.notes();
+
       this.setState({ notes });
     } catch (e) {
       alert(e);
@@ -44,22 +46,34 @@ export default class Home extends Component {
   }
 
   renderNotesList(notes) {
-    return [{}].concat(notes).map((note, i) =>
-      i !== 0 ? (
-        <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
-          <ListGroupItem header={note.content.trim().split("\n")[0]}>
-            {"Created: " + new Date(note.createdAt).toLocaleString()}
-          </ListGroupItem>
-        </LinkContainer>
-      ) : (
-        <LinkContainer key="new" to="/notes/new">
-          <ListGroupItem>
-            <h4>
-              <b>{"\uFF0B"}</b> Add
-            </h4>
-          </ListGroupItem>
-        </LinkContainer>
-      )
+    return (
+      <Table responsive>
+        <tbody>
+          <tr>
+            <th>#</th>
+            <th>SKU</th>
+            <th>Title</th>
+            <th>BestBuy Quantity</th>
+            <th>Shopify Quantity</th>
+          </tr>
+
+          {[{}].concat(notes).map((note, i) =>
+            i !== 0 ? (
+              <tr key={note.noteId}>
+                <td>{i}</td>
+                <td>{note.sku}</td>
+                <td>
+                  <Link to={`/notes/${note.noteId}`}>
+                    <span>{note.title.trim().split("\n")[0]}</span>
+                  </Link>
+                </td>
+                <td>{note.bbq}</td>
+                <td>{note.shq}</td>
+              </tr>
+            ) : null
+          )}
+        </tbody>
+      </Table>
     );
   }
 
@@ -105,12 +119,33 @@ export default class Home extends Component {
 
   renderNotes() {
     return (
-      <div className="notes">
-        <PageHeader>Products List</PageHeader>
-        <ListGroup>
-          {!this.state.isLoading && this.renderNotesList(this.state.notes)}
-        </ListGroup>
-      </div>
+      <Grid className="notes">
+        <Row>
+          <Col md={10}>
+            <PageHeader>
+              <small>Products List</small>
+            </PageHeader>
+          </Col>
+          <Col mf={1}>
+            <LinkContainer key="new" to="/notes/new">
+              <Button bsStyle="primary">
+                <h5>
+                  <b>{"\uFF0B"}</b> Add
+                </h5>
+              </Button>
+            </LinkContainer>
+            <LinkContainer to="/bestbuy">
+              <Button>BestBuy</Button>
+            </LinkContainer>
+            <Button>Shopify</Button>
+          </Col>
+        </Row>
+        <Row>
+          <ListGroup>
+            {!this.state.isLoading && this.renderNotesList(this.state.notes)}
+          </ListGroup>
+        </Row>
+      </Grid>
     );
   }
 

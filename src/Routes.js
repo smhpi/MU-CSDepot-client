@@ -8,6 +8,7 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import NewNote from "./containers/NewNote";
 import Notes from "./containers/Notes";
+import BbList from "./containers/BbList";
 import NotFound from "./containers/NotFound";
 
 export default ({ childProps }) => (
@@ -35,6 +36,12 @@ export default ({ childProps }) => (
       path="/notes/:id"
       exact
       component={Notes}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/bestbuy"
+      exact
+      component={BbList}
       props={childProps}
     />
     {/* Finally, catch all unmatched routes */}
