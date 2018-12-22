@@ -93,15 +93,18 @@ export default class NewNote extends Component {
   render() {
     return (
       <div className="NewNote">
-        <Link to="/">
-          <Glyphicon glyph="chevron-left" />
-          {"Products "}
-        </Link>
-        <form onSubmit={this.handleSubmit}>
-          <Grid>
-            <h2>Add Product</h2>
+        <Grid>
+          <Link to="/listing">
+            <Glyphicon glyph="chevron-left" />
+            {"Listing "}
+          </Link>
+          <br />
+          <br />
+          <form onSubmit={this.handleSubmit}>
             <Panel>
-              <Panel.Heading> </Panel.Heading>
+              <Panel.Heading>
+                <Panel.Title componentClass="h1">Add Product</Panel.Title>
+              </Panel.Heading>
               <Panel.Body>
                 <ControlLabel>Title</ControlLabel>
                 <FormGroup controlId="title">
@@ -228,8 +231,8 @@ export default class NewNote extends Component {
                 />
               </Col>
             </Row>
-          </Grid>
-        </form>
+          </form>
+        </Grid>
       </div>
     );
   }

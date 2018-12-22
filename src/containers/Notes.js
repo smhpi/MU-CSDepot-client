@@ -170,163 +170,172 @@ export default class Notes extends Component {
   render() {
     return (
       <div className="Notes">
-        <Link to="/">
-          <Glyphicon glyph="chevron-left" />
-          {"Products "}
-        </Link>
-        {this.state.note && (
-          <form onSubmit={this.handleSubmit}>
-            <Grid>
-              <Panel>
-                <Panel.Heading> </Panel.Heading>
-                <Panel.Body>
-                  <ControlLabel>Title</ControlLabel>
-                  <FormGroup controlId="title">
-                    <FormControl
-                      onChange={this.handleChange}
-                      value={this.state.title}
-                      type="text"
-                      bsSize="lg"
-                    />
-                  </FormGroup>
-                  <ControlLabel>Description</ControlLabel>
-                  <FormGroup controlId="content">
-                    <FormControl
-                      onChange={this.handleChange}
-                      value={this.state.content}
-                      componentClass="textarea"
-                    />
-                  </FormGroup>
-                  <Row>
-                    <Col md={4}>
-                      <ControlLabel>Price</ControlLabel>
-                      <FormGroup controlId="price">
-                        <FormControl
-                          onChange={this.handleChange}
-                          value={this.state.price}
-                          type="text"
-                          bsSize="lg"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </Panel.Body>
-              </Panel>
-              <Panel>
-                <Panel.Heading> Inventory </Panel.Heading>
-                <Panel.Body>
-                  <Row>
-                    <Col md={4}>
-                      <ControlLabel>SKU</ControlLabel>
-                      <FormGroup controlId="sku">
-                        <FormControl
-                          onChange={this.handleChange}
-                          value={this.state.sku}
-                          type="text"
-                          bsSize="lg"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md={4}>
-                      <ControlLabel>UPC/Barcode</ControlLabel>
-                      <FormGroup controlId="upc">
-                        <FormControl
-                          onChange={this.handleChange}
-                          value={this.state.upc}
-                          type="text"
-                          bsSize="lg"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md={4}>
-                      <ControlLabel>#MPN</ControlLabel>
-                      <FormGroup controlId="mpn">
-                        <FormControl
-                          onChange={this.handleChange}
-                          value={this.state.mpn}
-                          type="text"
-                          bsSize="lg"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+        <Grid>
+          <Row>
+            <Link to="/">
+              <Glyphicon glyph="chevron-left" />
+              {"Products "}
+            </Link>
+          </Row>
+          <br />
+          <Row>
+            {this.state.note && (
+              <form onSubmit={this.handleSubmit}>
+                <Panel>
+                  <Panel.Heading>
+                    <Panel.Title componentClass="h1">
+                      {this.state.title}
+                    </Panel.Title>
+                  </Panel.Heading>
+                  <Panel.Body>
+                    <ControlLabel>Title</ControlLabel>
+                    <FormGroup controlId="title">
+                      <FormControl
+                        onChange={this.handleChange}
+                        value={this.state.title}
+                        type="text"
+                        bsSize="lg"
+                      />
+                    </FormGroup>
+                    <ControlLabel>Description</ControlLabel>
+                    <FormGroup controlId="content">
+                      <FormControl
+                        onChange={this.handleChange}
+                        value={this.state.content}
+                        componentClass="textarea"
+                      />
+                    </FormGroup>
+                    <Row>
+                      <Col md={4}>
+                        <ControlLabel>Price</ControlLabel>
+                        <FormGroup controlId="price">
+                          <FormControl
+                            onChange={this.handleChange}
+                            value={this.state.price}
+                            type="text"
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  </Panel.Body>
+                </Panel>
+                <Panel>
+                  <Panel.Heading> Inventory </Panel.Heading>
+                  <Panel.Body>
+                    <Row>
+                      <Col md={4}>
+                        <ControlLabel>SKU</ControlLabel>
+                        <FormGroup controlId="sku">
+                          <FormControl
+                            onChange={this.handleChange}
+                            value={this.state.sku}
+                            type="text"
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md={4}>
+                        <ControlLabel>UPC/Barcode</ControlLabel>
+                        <FormGroup controlId="upc">
+                          <FormControl
+                            onChange={this.handleChange}
+                            value={this.state.upc}
+                            type="text"
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md={4}>
+                        <ControlLabel>#MPN</ControlLabel>
+                        <FormGroup controlId="mpn">
+                          <FormControl
+                            onChange={this.handleChange}
+                            value={this.state.mpn}
+                            type="text"
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
 
-                  <Row>
-                    <Col md={6}>
-                      <ControlLabel>Shopify Qt</ControlLabel>
-                      <FormGroup controlId="shq">
-                        <FormControl
-                          onChange={this.handleChange}
-                          value={this.state.shq}
-                          type="number"
-                          bsSize="lg"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <ControlLabel>BestBuy Qt</ControlLabel>
-                      <FormGroup controlId="bbq">
-                        <FormControl
-                          onChange={this.handleChange}
-                          value={this.state.bbq}
-                          type="number"
-                          bsSize="lg"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </Panel.Body>
-              </Panel>
+                    <Row>
+                      <Col md={6}>
+                        <ControlLabel>Shopify Qt</ControlLabel>
+                        <FormGroup controlId="shq">
+                          <FormControl
+                            onChange={this.handleChange}
+                            value={this.state.shq}
+                            type="number"
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <ControlLabel>BestBuy Qt</ControlLabel>
+                        <FormGroup controlId="bbq">
+                          <FormControl
+                            onChange={this.handleChange}
+                            value={this.state.bbq}
+                            type="number"
+                            bsSize="lg"
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  </Panel.Body>
+                </Panel>
 
-              {this.state.note.attachment && (
-                <FormGroup>
-                  <ControlLabel>Attachment</ControlLabel>
-                  <FormControl.Static>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={this.state.attachmentURL}
-                    >
-                      {this.formatFilename(this.state.note.attachment)}
-                    </a>
-                  </FormControl.Static>
-                </FormGroup>
-              )}
-              <FormGroup controlId="file">
-                {!this.state.note.attachment && (
-                  <ControlLabel>Attachment</ControlLabel>
+                {this.state.note.attachment && (
+                  <FormGroup>
+                    <ControlLabel>Attachment</ControlLabel>
+                    <FormControl.Static>
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={this.state.attachmentURL}
+                      >
+                        {this.formatFilename(this.state.note.attachment)}
+                      </a>
+                    </FormControl.Static>
+                  </FormGroup>
                 )}
-                <FormControl onChange={this.handleFileChange} type="file" />
-              </FormGroup>
+                <FormGroup controlId="file">
+                  {!this.state.note.attachment && (
+                    <ControlLabel>Attachment</ControlLabel>
+                  )}
+                  <FormControl onChange={this.handleFileChange} type="file" />
+                </FormGroup>
 
-              <Row className="ActionRow">
-                <Col md={2}>
-                  <LoaderButton
-                    block
-                    bsStyle="primary"
-                    bsSize="large"
-                    disabled={!this.validateForm()}
-                    type="submit"
-                    isLoading={this.state.isLoading}
-                    text="Save"
-                    loadingText="Saving…"
-                  />
-                </Col>
-                <Col md={2}>
-                  <LoaderButton
-                    block
-                    bsStyle="danger"
-                    bsSize="large"
-                    isLoading={this.state.isDeleting}
-                    onClick={this.handleDelete}
-                    text="Delete"
-                    loadingText="Deleting…"
-                  />
-                </Col>
-              </Row>
-            </Grid>
-          </form>
-        )}
+                <Row className="ActionRow">
+                  <Col md={2}>
+                    <LoaderButton
+                      block
+                      bsStyle="primary"
+                      bsSize="large"
+                      disabled={!this.validateForm()}
+                      type="submit"
+                      isLoading={this.state.isLoading}
+                      text="Save"
+                      loadingText="Saving…"
+                    />
+                  </Col>
+                  <Col md={2}>
+                    <LoaderButton
+                      block
+                      bsStyle="danger"
+                      bsSize="large"
+                      isLoading={this.state.isDeleting}
+                      onClick={this.handleDelete}
+                      text="Delete"
+                      loadingText="Deleting…"
+                    />
+                  </Col>
+                </Row>
+              </form>
+            )}
+          </Row>
+        </Grid>
       </div>
     );
   }

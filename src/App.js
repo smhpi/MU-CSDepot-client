@@ -47,7 +47,7 @@ class App extends Component {
     };
     return (
       !this.state.isAuthenticating && (
-        <div className="App container bg-light">
+        <div className="App bg-light">
           <Navbar fluid collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
@@ -56,9 +56,26 @@ class App extends Component {
                   <img src={logo} alt="MarketUnity" />
                 </Link>
               </Navbar.Brand>
+
               <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
+              <Nav>
+                <Fragment>
+                  <LinkContainer to="/">
+                    <NavItem>Home</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/listing">
+                    <NavItem>Listing</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/orders">
+                    <NavItem>Orders</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/reports">
+                    <NavItem>Reports</NavItem>
+                  </LinkContainer>
+                </Fragment>
+              </Nav>
               <Nav pullRight>
                 {this.state.isAuthenticated ? (
                   <NavItem onClick={this.handleLogout}>Logout</NavItem>

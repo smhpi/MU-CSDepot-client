@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Button, Table, Jumbotron, Glyphicon } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Jumbotron,
+  Glyphicon,
+  Grid,
+  Col,
+  Row
+} from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
-import BBAPI from "../libs/BestBuyAPI";
-import ListStore from "../components/ListStore";
 import { API } from "aws-amplify";
 
 class BbList extends Component {
@@ -52,14 +58,14 @@ class BbList extends Component {
           bbq: this.state.bblist[i].quantity
         });
       }
-      this.props.history.push("/");
+      this.props.history.push("/listing");
     } catch (e) {
       alert(e);
     }
   };
 
   bbUpdate(note) {
-    return API.put("notes", "/notes", {
+    return API.post("notes", "/notes", {
       body: note
     });
   }
@@ -68,7 +74,7 @@ class BbList extends Component {
     const BestBuyList = this.state.bblist;
     console.log(BestBuyList);
     return (
-      <div>
+      <Grid>
         <Table responsive>
           <tbody>
             <tr>
@@ -95,22 +101,29 @@ class BbList extends Component {
           isLoading={this.state.isLoading}
           loadingText="Saving..."
         />
-      </div>
+      </Grid>
     );
   };
 
   render() {
     return (
       <Jumbotron>
-        <Link to="/">
-          <Glyphicon glyph="chevron-left" />
-          {"Products "}
-        </Link>
-        <br />
-        <br />
-
-        <Button onClick={this.handleClick}>BestBuy Data</Button>
-        {this.state.bbClick ? this.handleAPI() : null}
+        <Grid>
+          <Row>
+            <Col md={10}>
+              <Link to="/listing">
+                <Glyphicon glyph="chevron-left" />
+                {"Listing"}
+              </Link>
+            </Col>
+            <Col md={2}>
+              <Button onClick={this.handleClick}>BestBuy Data</Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col>{this.state.bbClick ? this.handleAPI() : null}</Col>
+          </Row>
+        </Grid>
       </Jumbotron>
     );
   }

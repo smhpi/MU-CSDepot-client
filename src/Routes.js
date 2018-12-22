@@ -10,6 +10,7 @@ import NewNote from "./containers/NewNote";
 import Notes from "./containers/Notes";
 import BbList from "./containers/BbList";
 import NotFound from "./containers/NotFound";
+import Listing from "./containers/Listing";
 
 export default ({ childProps }) => (
   <Switch>
@@ -24,6 +25,12 @@ export default ({ childProps }) => (
       path="/signup"
       exact
       component={Signup}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/listing"
+      exact
+      component={Listing}
       props={childProps}
     />
     <AuthenticatedRoute
