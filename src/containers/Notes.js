@@ -9,7 +9,8 @@ import {
   Row,
   Col,
   Glyphicon,
-  Panel
+  Panel,
+  Image
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
@@ -34,6 +35,7 @@ export default class Notes extends Component {
       mpn: "",
       shq: "",
       bbq: "",
+      img: "",
       attachmentURL: null
     };
   }
@@ -51,6 +53,7 @@ export default class Notes extends Component {
         mpn,
         shq,
         bbq,
+        img,
         attachment
       } = note;
 
@@ -68,6 +71,7 @@ export default class Notes extends Component {
         mpn,
         shq,
         bbq,
+        img,
         attachmentURL
       });
     } catch (e) {
@@ -260,6 +264,7 @@ export default class Notes extends Component {
                     </Row>
 
                     <Row>
+                      <Col md={6} />
                       <Col md={6}>
                         <ControlLabel>Shopify Qt</ControlLabel>
                         <FormGroup controlId="shq">
@@ -271,7 +276,7 @@ export default class Notes extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col md={6}>
+                      <Col md={4}>
                         <ControlLabel>BestBuy Qt</ControlLabel>
                         <FormGroup controlId="bbq">
                           <FormControl
@@ -285,28 +290,42 @@ export default class Notes extends Component {
                     </Row>
                   </Panel.Body>
                 </Panel>
-
-                {this.state.note.attachment && (
-                  <FormGroup>
-                    <ControlLabel>Attachment</ControlLabel>
-                    <FormControl.Static>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={this.state.attachmentURL}
-                      >
-                        {this.formatFilename(this.state.note.attachment)}
-                      </a>
-                    </FormControl.Static>
-                  </FormGroup>
-                )}
-                <FormGroup controlId="file">
-                  {!this.state.note.attachment && (
-                    <ControlLabel>Attachment</ControlLabel>
-                  )}
-                  <FormControl onChange={this.handleFileChange} type="file" />
-                </FormGroup>
-
+                <Panel>
+                  <Panel.Body>
+                    <Row>
+                      <Col md={6}>
+                        <Image src={this.state.img} style={{ maxWidth: 150 }} />
+                      </Col>
+                      <Col md={6}>
+                        {this.state.note.attachment && (
+                          <FormGroup>
+                            <ControlLabel>Attachment</ControlLabel>
+                            <FormControl.Static>
+                              <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={this.state.attachmentURL}
+                              >
+                                {this.formatFilename(
+                                  this.state.note.attachment
+                                )}
+                              </a>
+                            </FormControl.Static>
+                          </FormGroup>
+                        )}
+                        <FormGroup controlId="file">
+                          {!this.state.note.attachment && (
+                            <ControlLabel>Attachment</ControlLabel>
+                          )}
+                          <FormControl
+                            onChange={this.handleFileChange}
+                            type="file"
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  </Panel.Body>
+                </Panel>
                 <Row className="ActionRow">
                   <Col md={2}>
                     <LoaderButton

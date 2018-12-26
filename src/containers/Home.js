@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {
-  PageHeader,
-  ListGroup,
-  Grid,
-  Row,
-  Col,
-  Image,
-  Table,
-  Button
-} from "react-bootstrap";
+import { Grid, Row, Col, Image } from "react-bootstrap";
 import "./Home.css";
 import mlogos from "../images/mlogos.png";
 class Home extends Component {

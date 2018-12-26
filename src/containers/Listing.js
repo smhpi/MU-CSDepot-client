@@ -6,7 +6,7 @@ import {
   Grid,
   Row,
   Col,
-  Image,
+  Thumbnail,
   Table,
   Button
 } from "react-bootstrap";
@@ -59,7 +59,13 @@ export default class Listing extends Component {
           {[{}].concat(notes).map((note, i) =>
             i !== 0 ? (
               <tr key={note.noteId}>
-                <td>{i}</td>
+                <td>
+                  <Thumbnail
+                    src={note.img}
+                    responsive
+                    style={{ maxWidth: 120 }}
+                  />
+                </td>
                 <td>{note.sku}</td>
                 <td>
                   <Link to={`/notes/${note.noteId}`}>
@@ -94,7 +100,9 @@ export default class Listing extends Component {
             <LinkContainer to="/bestbuy">
               <Button bsStyle="success pull-right">BestBuy</Button>
             </LinkContainer>
-            <Button bsStyle="success pull-right">Shopify</Button>
+            <LinkContainer to="/shopify">
+              <Button bsStyle="success pull-right">Shopify</Button>
+            </LinkContainer>
           </Col>
         </Row>
         <Row>

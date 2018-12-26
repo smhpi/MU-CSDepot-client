@@ -214,7 +214,7 @@ export default class NewNote extends Component {
             </Panel>
             <Row className="ActionRow">
               <Col md={1}>
-                <LinkContainer to="/">
+                <LinkContainer to="/listing">
                   <Button bsSize="lg">Cancel</Button>
                 </LinkContainer>
               </Col>
