@@ -7,7 +7,11 @@ import {
   Glyphicon,
   Grid,
   Col,
-  Row
+  Row,
+  Form,
+  FormGroup,
+  Checkbox,
+  ControlLabel
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { API } from "aws-amplify";
@@ -18,14 +22,23 @@ class BbList extends Component {
     this.state = {
       isLoading: null,
       bblist: [],
-      bbClick: false
+      bbClick: false,
+      bbChecked: []
     };
   }
 
   componentDidMount() {
     const url =
       "https://marketplace.bestbuy.ca/api/offers?api_key=7b363e5a-ea5c-4cc0-b361-32eebbbe42ac&max=100";
-    fetch(url)
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json"
+      }
+    })
       .then(resp => {
         return resp.json();
       })
@@ -43,21 +56,28 @@ class BbList extends Component {
     this.setState({ bbClick: true });
   };
 
+  handleChange = event => {
+    const bbChecked = this.state.bbChecked;
+    if (event.target.checked) {
+      bbChecked.push(event.target.value);
+    } else {
+      let index = bbChecked.indexOf(+event.target.value);
+      bbChecked.splice(index, 1);
+    }
+    this.setState({
+      bbChecked: bbChecked
+    });
+    console.log(this.state.bbChecked);
+  };
+
   dbUpdate = async event => {
     event.preventDefault();
     this.setState({ isLoading: true });
     try {
-      for (let i = 0; i < this.state.bblist.length - 1; i++) {
-        await this.bbUpdate({
-          content: this.state.bblist[i].product_title,
-          title: this.state.bblist[i].product_title,
-          price: this.state.bblist[i].price,
-          sku: this.state.bblist[i].shop_sku,
-          upc: this.state.bblist[i].product_references[0].reference,
-          mpn: this.state.bblist[i].shop_sku,
-          bbq: this.state.bblist[i].quantity
-        });
-      }
+      await this.bbUpdate({
+        bbq: this.state.bblist[4].quantity
+      });
+
       this.props.history.push("/listing");
     } catch (e) {
       alert(e);
@@ -65,34 +85,56 @@ class BbList extends Component {
   };
 
   bbUpdate(note) {
-    return API.post("notes", "/notes", {
+    return API.put("notes", `/notes/${this.state.bbChecked}`, {
       body: note
     });
   }
 
   handleAPI = () => {
     const BestBuyList = this.state.bblist;
-    console.log(BestBuyList);
+
     return (
       <Grid>
-        <Table responsive>
-          <tbody>
-            <tr>
-              <th>SKU</th>
-              <th>Title</th>
-              <th>Price</th>
-              <th>Quantity</th>
-            </tr>
-            {BestBuyList.map(list => (
-              <tr key={list.offer_id}>
-                <td>{list.shop_sku}</td>
-                <td>{list.product_title}</td>
-                <td>${list.price}</td>
-                <td>{list.quantity}</td>
+        <Form onSubmit={this.dbUpdate}>
+          <Table responsive>
+            <tbody>
+              <tr>
+                <th>SKU</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+
+              {BestBuyList.map(list => (
+                <tr key={list.offer_id}>
+                  <td>
+                    <FormGroup>
+                      <Checkbox
+                        value={list.shop_sku}
+                        onChange={this.handleChange}
+                      >
+                        <ControlLabel>{list.shop_sku}</ControlLabel>
+                      </Checkbox>
+                    </FormGroup>
+                  </td>
+
+                  <td>{list.product_title}</td>
+                  <td>${list.price}</td>
+                  <td>{list.quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <LoaderButton
+            block
+            bsStyle="primary"
+            bsSize="large"
+            type="submit"
+            isLoading={this.state.isLoading}
+            text="Save"
+            loadingText="Saving…"
+          />
+        </Form>
         <LoaderButton
           block
           onClick={this.dbUpdate}
